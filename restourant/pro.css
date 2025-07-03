@@ -40,9 +40,34 @@ color: white;}
 
 
 .Link{ margin:30px;
-font-size: 15px;}
+font-size: 15px;
+/* make the link a positioning context for the pseudo-element */
+position: relative;
+display: inline-block; }
 
-.Link:hover{border-bottom:2px solid rgb(235, 199, 21) ;}
+/* remove old border-bottom on hover (overrides, in case rule still exists elsewhere) */
+.Link:hover{ border-bottom: none; }
+
+/* animated underline */
+.Link::after{
+ content:"";
+ position: absolute;
+ left:0;
+ bottom:0;          /* sits at the very bottom of the link */
+ height:3px;        /* thickness of the underline */
+ width:100%;
+ background:#ff7a00; /* orange colour */
+ transform: scaleX(0);
+ transform-origin: right;
+ transition: transform .35s ease-in-out;
+}
+
+/* on hover (and if a link gets the class active) expand the line */
+.Link:hover::after,
+.Link.active::after{ 
+ transform: scaleX(1);
+ transform-origin: left;
+}
 
 .Welcome{width: 900px;
     height: 200px;
